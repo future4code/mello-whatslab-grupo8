@@ -1,26 +1,73 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import AreaDoWhats from './components/AreaDoWhats';
 import './App.css';
+import Prototype from 'prop-types'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends React.Component {
+  state = {
+    mensagens: [
+      {
+        usuario: "",
+        texto: ""
+      }
+    ],
+
+    valorInputUsuario: "",
+    valorInputTexto: ""
+  };
+
+  adicionaMensagem = () => {
+    const novaMensagem = {
+      usuario: this.state.valorInputUsuario,
+      texto: this.state.valorInputTexto
+    };
+
+    const novoMensagem = [...this.state.mensagens, novaMensagem];
+
+    this.setState({ mensagens: novoMensagem, valorInputUsuario: "", valorInputTexto: ""  });
+  };
+
+  onChangeInputPessoa = event => {
+    this.setState({
+      valorInputUsuario: event.target.value
+    });
+  };
+
+  onChangeInputTexto = event => {
+    this.setState({ valorInputTexto: event.target.value });
+  };
+
+  render() {
+    const listaDeComponentes = this.state.mensagens.map(mensagens => {
+      return (
+       <p>{mensagens.usuario} {mensagens.texto}</p>
+      );
+    });
+
+    return (
+      <div>
+        <AreaDoWhats>
+        <div>{listaDeComponentes}</div>
+        <div>
+          <input
+            value={this.state.valorInputUsuario} 
+            onChange={this.onChangeInputPessoa}
+            placeholder={"Usuário"}
+          />
+          <input
+            value={this.state.valorInputTexto}
+            onChange={this.onChangeInputTexto}
+            placeholder={"Escreva a mensagem"}
+          />
+
+          <button onClick={this.adicionaMensagem}>Adicionar</button>
+        </div>
+        </AreaDoWhats>
+      </div>
+    );
+  }
 }
 
 export default App;
