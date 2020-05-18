@@ -29,6 +29,10 @@ const Botao = styled.button `
   margin-bottom: 5px;
 `
 
+const ExibeMensagem = styled.div `
+  width: 500px;
+`
+
 class App extends React.Component {
 
   state = {
@@ -67,7 +71,8 @@ class App extends React.Component {
 
   deletarMensagem = () => {
     const del = window.confirm("Tem certeza que deseja deletar essa mensagem?")
-    return del;
+    if (del) {
+    }
   };
 
   render() {
@@ -84,9 +89,9 @@ class App extends React.Component {
       <div className="App">
         <AppMensagem>
 
-          <div>
+          <ExibeMensagem>
             {listaMensagens}
-          </div>
+          </ExibeMensagem>
 
           <div>
             <InputNomeUsuario
